@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+    <head>
+        <div th:insert="~{header}"></div>
+    </head>
+    <body>
+        <div class="container-fluid" th:insert="~{navbar.html}"></div>
+        <div>
+            <div class="container mt-5" style="min-height: 600px">
+                <div class="row">
+                    <div class="col-6 mx-auto">
+                        <form action="/api/v1/add-user" method="post">
+                            <div class="row">
+                                <div class="col-12">
+                                    <label>Name:</label>
+                                </div>
+                            </div>
+                            <div class="row mt-2">
+                                <div class="col-12">
+                                    <input type="text"  class="form-control" name ="firstName" placeholder="Enter Your Name" required>
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-12">
+                                    <label>Surname:</label>
+                                </div>
+                            </div>
+                            <div class="row mt-2">
+                                <div class="col-12">
+                                    <input type="text"  class="form-control" name ="lastName" placeholder="Enter Your Surname" required>
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-12">
+                                    <label>DateOfBirth:</label>
+                                </div>
+                            </div>
+                            <div class="row mt-2">
+                                <div class="col-12">
+                                    <input type="date"  class="form-control" name ="dateBirth" placeholder="Enter Date of birth" required>
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-12">
+                                    <label>Contact Number:</label>
+                                </div>
+                            </div>
+                            <div class="row mt-2">
+                                <div class="col-12">
+                                    <input type="number"  class="form-control" name ="contactNumber" placeholder="Enter Your Contact" required>
+                                </div>
+                            </div>
+
+                            <div class="row mt-3">
+                                <div class="col-12">
+                                    <label>Group:</label>
+                                </div>
+                            </div>
+                            <div class="row mt-2">
+                                <div class="col-12">
+                                    <select name="group.groupId" class="form-select form-control">
+                                        <option th:each = "group : ${groupLar}"
+                                                th:value = "${group.groupId}"
+                                                th:text = "${group.groupName+' / '+group.faculty.facultyName}">
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="row mt-3">
+                                <div class="col-12">
+                                    <label>City:</label>
+                                </div>
+                            </div>
+                            <div class="row mt-2">
+                                <div class="col-12">
+                                    <select name="city.cityId" class="form-select form-control">
+                                        <option th:each = "city : ${cityLar}"
+                                                th:value = "${city.cityId}"
+                                                th:text = "${city.cityName+' / '+city.country.countryName}">
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="row mt-3">
+                                <div class="col-12">
+                                    <button class="btn btn-success">ADD USER</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div th:insert="~{footer.html}"></div>
+</body>
+</html>

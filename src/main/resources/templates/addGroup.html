@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <div th:insert="~{header}"></div>
+</head>
+<body>
+<div class="container-fluid" th:insert="~{navbar.html}"></div>
+<div>
+    <div class="container mt-5" style="min-height: 600px">
+        <div class="row">
+            <div class="col-6 mx-auto">
+                <form action="/api/v1/add-group" method="POST">
+                    <div class="row">
+                        <div class="col-12">
+                            <label>Group Name:</label>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-12">
+                            <input type="text"  class="form-control" name ="groupName" placeholder="Enter Your Group" required>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-12">
+                            <label>Enrollment:</label>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-12">
+                            <input type="text"  class="form-control" name ="enrollment" placeholder="Enter Your Enrollment" required>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-12">
+                            <label>Amount Of Student:</label>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-12">
+                            <input type="text"  class="form-control" name ="amount" placeholder="Enter Student Amount" required>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-12">
+                            <label>Faculty:</label>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-12">
+                            <div th:each="faculty : ${facultyLar}" class="form-check">
+                                <input type="radio" th:id="${'faculty-' + faculty.facultyId}"
+                                       th:name="faculty.facultyId" th:value="${faculty.facultyId}"
+                                       class="form-check-input">
+                                <label th:for="${'faculty-' + faculty.facultyId}" class="form-check-label"
+                                       th:text="${faculty.facultyName}"></label>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+                    <div class="row mt-3">
+                        <div class="col-12">
+                            <button class="btn btn-success">ADD FACULTY</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:insert="~{footer.html}"></div>
+</body>
+</html>

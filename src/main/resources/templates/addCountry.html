@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <div th:insert="~{header}"></div>
+</head>
+<body>
+<div class="container-fluid" th:insert="~{navbar.html}"></div>
+<div>
+    <div class="container mt-5" style="min-height: 600px">
+        <div class="row">
+            <div class="col-6 mx-auto">
+                <form action="/api/v1/add-country" method="POST">
+                    <div class="row">
+                        <div class="col-12">
+                            <label>Country Name:</label>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-12">
+                            <input type="text"  class="form-control" name ="CountryName" placeholder="Enter Country" required>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-12">
+                            <button class="btn btn-success">ADD COUNTRY</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:insert="~{footer.html}"></div>
+</body>
+</html>
