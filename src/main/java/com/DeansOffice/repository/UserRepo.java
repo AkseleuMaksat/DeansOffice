@@ -14,5 +14,4 @@ public interface UserRepo extends JpaRepository<User, Long> {
             "WHERE LOWER(u.firstName) LIKE LOWER(CONCAT('%', :firstName, '%')) " +
             "ORDER BY u.userId ASC ")
     List<User> searchUserByFirstName(@Param("firstName") String firstName);
-
 }

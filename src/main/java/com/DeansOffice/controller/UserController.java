@@ -77,6 +77,11 @@ public class UserController {
         userService.addFaculty(faculty);
         return "redirect:/api/v1/user";
     }
+    @GetMapping("/faculty")
+    public String getFaculty(Model model){
+        model.addAttribute("facultyLar", userService.getFaculties());
+        return "addFacultyTable.html";
+    }
 
 //CITY
     @GetMapping("/add-address")
@@ -90,10 +95,14 @@ public class UserController {
         userService.addCity(city);
         return "redirect:/api/v1/user";
     }
+    @GetMapping("/address")
+    public String getCity(Model model){
+        model.addAttribute("cityLar", userService.getCities());
+        return "addCityTable.html";
+    }
 //COUNTRY
     @GetMapping("/add-country")
     public String addCountryPage() {
-
         return "addCountry.html";
     }
 
@@ -103,6 +112,11 @@ public class UserController {
         return "redirect:/api/v1/user";
     }
 
+    @GetMapping("/country")
+    public String getCountry(Model model){
+        model.addAttribute("countyLar",userService.getCounties());
+        return "addCountryTable.html";
+    }
 //GROUP
     @GetMapping("/add-group")
     public String addGroupPage(Model model) {
@@ -115,6 +129,11 @@ public class UserController {
         userService.addGroup(group);
         return "redirect:/api/v1/user";
 
+    }
+    @GetMapping("/group")
+    public String getGroup(Model model){
+        model.addAttribute("groups", userService.getGroup());
+        return "addGroupTable.html";
     }
 //Auth
     @GetMapping(value = "/sign-in-page")

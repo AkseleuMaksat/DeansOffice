@@ -1,38 +1,60 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://thymeleaf.org">
-    <head>
-        <div th:insert="~{header}"></div>
-    </head>
-    <body>
-    <div th:insert="~{navbar.html}"></div>
-        <div >
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>FirstName</th>
-                        <th>LastName</th>
-                        <th>DateBirth</th>
-                        <th>Contact</th>
-                        <th>Group</th>
-                        <th>City</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr th:each="user : ${UserLar}">
-                        <td th:text="${user.userId}"></td>
-                        <td th:text="${user.firstName}"></td>
-                        <td th:text="${user.lastName}"></td>
-                        <td th:text="${user.dateBirth}"></td>
-                        <td th:text="${user.contactNumber}"></td>
-                        <td th:text="${user.group.groupName}"></td>
-                        <td th:text="${user.city.cityName}"></td>
-                        <td>
-                            <a th:href="@{'/api/v1/user/details?userId=' + ${user.userId}}" class="btn btn-success">MORE</a>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </body>
+<head>
+    <div th:insert="~{header}"></div>
+    <style>
+        body {
+            padding-bottom: 128px;
+
+        }
+        tr td:last-child{
+            width: 200px;
+        }
+        .btn-add {
+            width: 60px;
+            height: 40px;
+            position: fixed;
+            display: flex;
+            bottom: 140px;
+            right: 20px;
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+<div th:insert="~{navbar.html}"></div>
+<div>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>FirstName</th>
+            <th>LastName</th>
+            <th>DateBirth</th>
+            <th>Contact</th>
+            <th>Group</th>
+            <th>City</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user : ${UserLar}">
+            <td th:text="${user.userId}"></td>
+            <td th:text="${user.firstName}"></td>
+            <td th:text="${user.lastName}"></td>
+            <td th:text="${user.dateBirth}"></td>
+            <td th:text="${user.contactNumber}"></td>
+            <td th:text="${user.group.groupName}"></td>
+            <td th:text="${user.city.cityName}"></td>
+            <td>
+                <a th:href="@{'/api/v1/user/details?userId=' + ${user.userId}}" class="btn btn-success">EDIT</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <a th:href="@{/api/v1/add-user}" class="btn btn-success btn-add">+</a>
+</div>
+ <div th:insert="~{footer}" style="position: absolute; bottom: 0; width: 100%;"></div>
+</body>
 </html>
