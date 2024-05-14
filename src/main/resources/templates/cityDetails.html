@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <div th:insert="~{header}"></div>
+</head>
+<body>
+<div  th:insert="~{navbar.html}"></div>
+<div>
+    <div class="container mt-5" style="min-height: 600px" th:if="${city!=null}">
+        <div class="row mt-5">
+            <div class="col-6 mx-auto">
+                <form action="/api/v1/edit-city" method="post" >
+                    <input type="hidden" name="cityId" th:value = "${city.cityId}">
+                    <div class="row">
+                        <div class="col-12">
+                            <label>CityName:</label>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-12">
+                            <input type="text"  class="form-control" name ="cityName"
+                                   th:value="${city.cityName}" required>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-12">
+                            <label>Country:</label>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-12">
+                            <select name="country.countryId" class="form-select form-control">
+                                <option th:each = "country : ${countryLar}"
+                                        th:value = "${country.countryId}"
+                                        th:text = "${country.countryName}"
+                                        th:selected="${city.country.countryId == country.countryId}"
+                                >
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row mt-3">
+                        <div class="col-12">
+                            <button class="btn btn-success">EDIT CITY</button>
+                        </div>
+                    </div>
+                </form>
+                <h5 th:if="${city==null}" class="text-center">City not found</h5>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:insert="~{footer.html}"></div>
+</body>
+</html>

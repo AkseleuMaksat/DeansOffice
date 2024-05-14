@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <div th:insert="~{header}"></div>
+</head>
+<body>
+<div  th:insert="~{navbar.html}"></div>
+<div>
+    <div class="container mt-5" style="min-height: 600px" th:if="${country!=null}">
+        <div class="row mt-5">
+            <div class="col-6 mx-auto">
+                <form action="/api/v1/edit-country" method="post" >
+                    <input type="hidden" name="countryId" th:value = "${country.countryId}">
+                    <div class="row">
+                        <div class="col-12">
+                            <label>CountryName:</label>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-12">
+                            <input type="text"  class="form-control" name ="countryName"
+                                   th:value="${country.countryName}" required>
+                        </div>
+                    </div>
+
+                    <div class="row mt-3">
+                        <div class="col-12">
+                            <button class="btn btn-success">EDIT COUNTRY</button>
+                        </div>
+                    </div>
+                </form>
+                <h5 th:if="${country==null}" class="text-center">Country not found</h5>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:insert="~{footer.html}"></div>
+</body>
+</html>

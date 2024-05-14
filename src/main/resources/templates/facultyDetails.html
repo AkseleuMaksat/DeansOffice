@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <div th:insert="~{header}"></div>
+</head>
+<body>
+<div  th:insert="~{navbar.html}"></div>
+<div>
+
+    <div th:if="${error==true}" class="text-center" style="margin-top: 150px; padding-bottom: 475px">
+        <h3 class="text-center">You can't to do this "Constraint working"</h3>
+    </div>
+    <div class="container mt-5" style="min-height: 600px" th:if="${faculty!=null && error!=true }">
+        <div class="row mt-5">
+            <div class="col-6 mx-auto">
+                <form action="/api/v1/edit-faculty" method="post" >
+                    <input type="hidden" name="facultyId" th:value = "${faculty.facultyId}">
+                    <div class="row">
+                        <div class="col-12">
+                            <label>FacultyName:</label>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-12">
+                            <input type="text"  class="form-control" name ="facultyName"
+                                   th:value="${faculty.facultyName}" required>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-12">
+                            <label>Dean:</label>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-12">
+                            <input type="text"  class="form-control" name ="dean"
+                                   th:value="${faculty.dean}" required>
+                        </div>
+                    </div>
+
+                    <div class="row mt-3">
+                        <div class="col-12">
+                            <button class="btn btn-success">EDIT FACULTY</button>
+                        </div>
+                    </div>
+                </form>
+                <h5 th:if="${faculty==null}" class="text-center">Faculty not found</h5>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:insert="~{footer.html}"></div>
+</body>
+</html>

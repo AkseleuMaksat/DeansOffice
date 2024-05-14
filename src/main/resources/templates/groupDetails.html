@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <div th:insert="~{header}"></div>
+</head>
+<body>
+<div  th:insert="~{navbar.html}"></div>
+<div>
+
+    <div th:if="${error==true}" class="text-center" style="margin-top: 150px; padding-bottom: 475px">
+        <h3 class="text-center">You can't to do this "Constraint working"</h3>
+    </div>
+    <div class="container mt-5" style="min-height: 600px" th:if="${group!=null && error!=true}">
+        <div class="row mt-5">
+            <div class="col-6 mx-auto">
+                <form action="/api/v1/edit-group" method="post" >
+                    <input type="hidden" name="groupId" th:value = "${group.groupId}">
+                    <div class="row">
+                        <div class="col-12">
+                            <label>GroupName:</label>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-12">
+                            <input type="text"  class="form-control" name ="groupName"
+                                   th:value="${group.groupName}" required>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-12">
+                            <label>Enrollment:</label>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-12">
+                            <input type="text"  class="form-control" name ="enrollment"
+                                   th:value="${group.enrollment}" required>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-12">
+                            <label>Amount:</label>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-12">
+                            <input type="number"  class="form-control" name ="amount"
+                                   th:value="${group.amount}" required>
+                        </div>
+                    </div>
+
+                    <div class="row mt-3">
+                        <div class="col-12">
+                            <label>Faculty:</label>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-12">
+                            <select name="faculty.facultyId" class="form-select form-control">
+                                <option th:each = "faculty : ${facultyLar}"
+                                        th:value = "${faculty.facultyId}"
+                                        th:text = "${faculty.facultyName}"
+                                        th:selected="${group.faculty.facultyId == faculty.facultyId}"
+                                >
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row mt-3">
+                        <div class="col-12">
+                            <button class="btn btn-success">EDIT GROUP</button>
+                        </div>
+                    </div>
+                </form>
+                <h5 th:if="${group==null}" class="text-center">Group not found</h5>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:insert="~{footer.html}"></div>
+</body>
+</html>
