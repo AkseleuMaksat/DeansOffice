@@ -1,3 +1,5 @@
+
+
 <nav class="navbar navbar-expand-lg bg-success navbar-dark" xmlns:sec="http://www.w3.org/1999/xhtml">
   <div class="container-fluid">
     <a class="navbar-brand" th:href="${'/api/v1/user'}">Dean's Office</a>
@@ -18,9 +20,21 @@
         <li class="nav-item">
           <a class="nav-link active" th:href="${'/api/v1/country'}">COUNTRY</a>
         </li>
-
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Roles
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li>
+              <a class="dropdown-item"  th:onclick="setRole(true)">User</a>
+            </li>
+            <li>
+              <a class="dropdown-item"  th:onclick="setRole(false)">Admin</a>
+            </li>
+          </ul>
+        </li>
       </ul>
-      <form class="d-flex" role="search" th:action ="@{'/api/v1/user'}">
+      <form class="d-flex" role="search" th:action ="@{'/api/v1/user'}" >
         <input class="form-control me-2" type="search"
                placeholder="Search" aria-label="Search"  name = "key"
                th:value="${param.key!=null?param.key:''}">
@@ -29,3 +43,5 @@
     </div>
   </div>
 </nav>
+
+<script type="text/javascript" th:src="@{'/js/script.js'}"></script>

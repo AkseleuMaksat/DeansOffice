@@ -1,15 +1,16 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <div th:insert="~{header}"></div>
     <style>
         body {
             padding-bottom: 128px;
-
         }
+
         tr td:last-child{
             width: 200px;
         }
+
         .btn-add {
             width: 60px;
             height: 40px;
@@ -21,21 +22,29 @@
             justify-content: center;
             align-items: center;
         }
+
+        .sort-asc:after {
+            content: "\25B2";
+        }
+
+        .sort-desc:after {
+            content: "\25BC";
+        }
     </style>
 </head>
 <body>
 <div th:insert="~{navbar.html}"></div>
 <div>
-    <table class="table table-striped">
+    <table class="table table-striped" id="sortable-table">
         <thead>
         <tr>
-            <th>ID</th>
-            <th>FirstName</th>
-            <th>LastName</th>
-            <th>DateBirth</th>
-            <th>Contact</th>
-            <th>Group</th>
-            <th>City</th>
+            <th onclick="sortTable(0)">ID<span class="sort-arrow"></span></th>
+            <th onclick="sortTable(1)">FirstName<span class="sort-arrow"></span></th>
+            <th onclick="sortTable(2)">LastName<span class="sort-arrow"></span></th>
+            <th onclick="sortTable(3)">DateBirth<span class="sort-arrow"></span></th>
+            <th onclick="sortTable(4)">Contact<span class="sort-arrow"></span></th>
+            <th onclick="sortTable(5)">Group<span class="sort-arrow"></span></th>
+            <th onclick="sortTable(6)">City<span class="sort-arrow"></span></th>
         </tr>
         </thead>
         <tbody>
@@ -48,13 +57,68 @@
             <td th:text="${user.group.groupName}"></td>
             <td th:text="${user.city.cityName}"></td>
             <td>
-                <a th:href="@{'/api/v1/user/details?userId=' + ${user.userId}}" class="btn btn-success">EDIT</a>
+                <div class="role">
+                    <a th:href="@{'/api/v1/user/details?userId=' + ${user.userId}}" class="btn btn-success">EDIT</a>
+                </div>
             </td>
         </tr>
         </tbody>
     </table>
-    <a th:href="@{/api/v1/add-user}" class="btn btn-success btn-add">+</a>
+    <div class="table-footer role" style="margin-left: 10px"  >
+        <a th:href="@{/api/v1/add-user}" class="btn btn-success btn-add">+</a>
+    </div>
+    <div class="table-footer" style="margin-left: 10px">
+        Total Rows: <span th:text="${UserLar.size()}"></span>
+    </div>
 </div>
- <div th:insert="~{footer}" style="position: absolute; bottom: 0; width: 100%;"></div>
+<div th:insert="~{footer}" style="position: absolute; bottom: 0; width: 100%;"></div>
 </body>
+<script th:inline="javascript">
+    function sortTable(columnIndex) {
+        var table, rows, switching, i, x, y, shouldSwitch, dir, switchCount = 0;
+        table = document.querySelector('#sortable-table');
+        switching = true;
+        dir = "asc";
+        while (switching) {
+            switching = false;
+            rows = table.rows;
+            for (i = 1; i < (rows.length - 1); i++) {
+                shouldSwitch = false;
+                x = rows[i].getElementsByTagName("td")[columnIndex];
+                y = rows[i + 1].getElementsByTagName("td")[columnIndex];
+                if (dir === "asc") {
+                    if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                        shouldSwitch = true;
+                        break;
+                    }
+                } else if (dir === "desc") {
+                    if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                        shouldSwitch = true;
+                        break;
+                    }
+                }
+            }
+            if (shouldSwitch) {
+                rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                switching = true;
+                switchCount++;
+            } else {
+                if (switchCount === 0 && dir === "asc") {
+                    dir = "desc";
+                    switching = true;
+                }
+            }
+        }
+
+        var headers = table.getElementsByTagName("th");
+        for (i = 0; i < headers.length; i++) {
+            headers[i].classList.remove("sort-asc", "sort-desc");
+        }
+
+        var currentHeader = headers[columnIndex];
+        currentHeader.classList.toggle("sort-asc", dir === "asc");
+        currentHeader.classList.toggle("sort-desc", dir === "desc");
+    }
+</script>
+<script type="text/javascript" th:src="@{'/js/script.js'}"></script>
 </html>

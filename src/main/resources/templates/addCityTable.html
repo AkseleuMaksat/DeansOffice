@@ -42,13 +42,22 @@
                 <td th:text="${city.cityId}"></td>
                 <td th:text="${city.cityName}"></td>
                 <td>
-                    <a th:href="@{'/api/v1/user/details?facultyId=' + ${city.cityId}}" class="btn btn-success">EDIT</a>
+                    <div class="role">
+                        <a th:href="@{'/api/v1/address/details?cityId=' + ${city.cityId}}" class="btn btn-success">EDIT</a>
+                    </div>
                 </td>
             </tr>
             </tbody>
         </table>
-        <a th:href="@{/api/v1/add-address}" class="btn btn-success btn-add">+</a>
+        <div class="table-footer" style="margin-left: 10px">
+            Total Rows: <span th:text="${cityLar.size()}"></span>
+        </div>
+        <div class="role">
+            <a th:href="@{/api/v1/add-address}" class="btn btn-success btn-add role">+</a>
+        </div>
     </div>
     <div th:insert="~{footer}" style="position: absolute; bottom: 0; width: 100%;"></div>
     </body>
+
+    <script type="text/javascript" th:src="@{'/js/script.js'}"></script>
 </html>

@@ -29,24 +29,91 @@
         <table class="table table-striped">
             <thead>
             <tr>
-                <th>ID</th>
-                <th>FacultyName</th>
-                <th>Dean</th>
+                <th onclick="sortTable(0)">ID<span class="sort-arrow"></span></th>
+                <th onclick="sortTable(1)">FacultyName<span class="sort-arrow"></span></th>
+                <th onclick="sortTable(2)">Dean<span class="sort-arrow"></span></th>
+                <th onclick="sortTable(3)">Amount<span class="sort-arrow"></span></th>
             </tr>
             </thead>
             <tbody>
-            <tr th:each="faculty : ${facultyLar}">
-                <td th:text="${faculty.facultyId}"></td>
-                <td th:text="${faculty.facultyName}"></td>
-                <td th:text="${faculty.dean}"></td>
-                <td>
-                    <a th:href="@{'/api/v1/user/details?facultyId=' + ${faculty.facultyId}}" class="btn btn-success">EDIT</a>
-                </td>
-            </tr>
+<!--            <tr th:each="faculty : ${facultyLar}">-->
+<!--                <td th:text="${faculty.facultyId}"></td>-->
+<!--                <td th:text="${faculty.facultyName}"></td>-->
+<!--                <td th:text="${faculty.dean}"></td>-->
+<!--                <td th:text="${amount}"></td>-->
+<!--                <td>-->
+<!--                    <a th:href="@{'/api/v1/faculty/details?facultyId=' + ${faculty.facultyId}}" class="btn btn-success">EDIT</a>-->
+<!--                </td>-->
+<!--            </tr>-->
+                <tr th:each="faculty, iterStat : ${facultyLar}">
+                    <td th:text="${facultyLar[iterStat.index].facultyId}"></td>
+                    <td th:text="${facultyLar[iterStat.index].facultyName}"></td>
+                    <td th:text="${facultyLar[iterStat.index].dean}"></td>
+                    <td th:text="${famount[iterStat.index]}"></td>
+                    <td>
+                        <div class="role">
+                            <a th:href="@{'/api/v1/faculty/details?facultyId=' + ${facultyLar[iterStat.index].facultyId}}" class="btn btn-success">EDIT</a>
+                        </div>
+                    </td>
+                </tr>
+
             </tbody>
         </table>
-        <a th:href="@{/api/v1/add-faculty}" class="btn btn-success btn-add">+</a>
+        <div class="table-footer" style="margin-left: 10px">
+            Total Rows: <span th:text="${facultyLar.size()}"></span>
+        </div>
+        <div class="role">
+            <a th:href="@{/api/v1/add-faculty}" class="btn btn-success btn-add">+</a>
+        </div>
     </div>
     <div th:insert="~{footer}" style="position: absolute; bottom: 0; width: 100%;"></div>
     </body>
+    <script type="text/javascript" th:src="@{'/js/script.js'}"></script>
+    <script th:inline="javascript">
+        function sortTable(columnIndex) {
+            var table, rows, switching, i, x, y, shouldSwitch, dir, switchCount = 0;
+            table = document.querySelector('#sortable-table');
+            switching = true;
+            dir = "asc";
+            while (switching) {
+                switching = false;
+                rows = table.rows;
+                for (i = 1; i < (rows.length - 1); i++) {
+                    shouldSwitch = false;
+                    x = rows[i].getElementsByTagName("td")[columnIndex];
+                    y = rows[i + 1].getElementsByTagName("td")[columnIndex];
+                    if (dir === "asc") {
+                        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                            shouldSwitch = true;
+                            break;
+                        }
+                    } else if (dir === "desc") {
+                        if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                            shouldSwitch = true;
+                            break;
+                        }
+                    }
+                }
+                if (shouldSwitch) {
+                    rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                    switching = true;
+                    switchCount++;
+                } else {
+                    if (switchCount === 0 && dir === "asc") {
+                        dir = "desc";
+                        switching = true;
+                    }
+                }
+            }
+
+            var headers = table.getElementsByTagName("th");
+            for (i = 0; i < headers.length; i++) {
+                headers[i].classList.remove("sort-asc", "sort-desc");
+            }
+
+            var currentHeader = headers[columnIndex];
+            currentHeader.classList.toggle("sort-asc", dir === "asc");
+            currentHeader.classList.toggle("sort-desc", dir === "desc");
+        }
+    </script>
 </html>

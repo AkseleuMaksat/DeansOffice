@@ -11,6 +11,7 @@
                     <div class="col-6 mx-auto">
                         <form action="/api/v1/edit-user" method="post" th:if="${user!=null}">
                             <input type="hidden" name="userId" th:value = "${user.userId}">
+                            <input type="hidden" name="group" th:value = "${user.group}">
                             <div class="row">
                                 <div class="col-12">
                                     <label>Name:</label>
@@ -56,23 +57,7 @@
                                 </div>
                             </div>
 
-                            <div class="row mt-3">
-                                <div class="col-12">
-                                    <label>Group:</label>
-                                </div>
-                            </div>
-                            <div class="row mt-2">
-                                <div class="col-12">
-                                    <select name="group.groupId" class="form-select form-control">
-                                        <option th:each = "group : ${groupLar}"
-                                                th:value = "${group.groupId}"
-                                                th:text = "${group.groupName+' / '+group.faculty.facultyName}"
-                                                th:selected="${user.group.groupId==group.groupId}"
-                                        >
-                                        </option>
-                                    </select>
-                                </div>
-                            </div>
+
                             <div class="row mt-3">
                                 <div class="col-12">
                                     <label>City:</label>
@@ -100,7 +85,7 @@
                         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" th:if="${user!=null}" >
                             <div class="modal-dialog">
                                 <div class="modal-content">
-                                    <form action ="/api/v1/delete-music" method="POST">
+                                    <form action ="/api/v1/delete-user" method="POST">
                                         <input type="hidden" name="id"  th:value = "${user.userId}" >
                                         <div class="modal-header">
                                             <h1 class="modal-title fs-5" id="exampleModalLabel">DELETE</h1>

@@ -47,31 +47,53 @@ public class UserService {
     public Country addCounty(Country country){
         return countryRepo.save(country);
     }
+    public Country getCountryDetails(Long id){
+        return countryRepo.findById(id).orElse(null);
+    }
 
 
     //group
     public List<Group> getGroup(){
         return groupRepo.findAll();
     }
-    public Group addGroup(Group group){
+    public Group addGroup(Group group)  {
         return groupRepo.save(group);
+
     }
     public List<Group> getGroups() {
         return groupRepo.findAll();
+    }
+    public Group getGroupDetails(Long id){
+        return groupRepo.findById(id).orElse(null);
+    }
+    public void deleteGroup(Long id) {
+        groupRepo.deleteById(id);
     }
 
     //faculty
     public List<Faculty> getFaculties(){
         return facultyRepo.findAll();
     }
+    public Faculty getFacultyById(Long id) {
+        return facultyRepo.findById(id).orElse(null);
+    }
+    public Faculty getFacultyDetails(Long id){
+        return facultyRepo.findById(id).orElse(null);
+    }
     public Faculty addFaculty(Faculty faculty){
         return facultyRepo.save(faculty);
     }
-
+    public void deleteFaculty(Long id) {
+        facultyRepo.deleteById(id);
+    }
     //city
     public List<City> getCities(){
         return cityRepo.findAll();
     }
+    public City getCityDetails(Long id){
+        return cityRepo.findById(id).orElse(null);
+    }
+
     public City addCity(City city){return cityRepo.save(city);}
 
 }

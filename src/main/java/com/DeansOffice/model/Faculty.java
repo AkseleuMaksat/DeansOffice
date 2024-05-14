@@ -13,11 +13,14 @@ public class Faculty {
     @Column(name = "facultyId")
     private Long facultyId;
 
-    @Column(name = "facultyName", length = 255)
+    @Column(name = "facultyName")
     private String facultyName;
 
     @Column(name = "dean", length = 100)
     private String dean;
+
+    @Column(name = "facultyAmount")
+    private Long facultyAmount;
 
 }
 
