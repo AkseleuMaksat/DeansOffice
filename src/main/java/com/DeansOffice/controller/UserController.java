@@ -37,7 +37,7 @@ public class UserController {
     public String index(Model model, @RequestParam(name = "key", required = false, defaultValue = "") String key) {
         List<User> users = userRepo.searchUserByFirstName(key);
         model.addAttribute("UserLar", users);
-        return "index.html";
+        return "index";
     }
 
     @GetMapping(value = "/user/details")
